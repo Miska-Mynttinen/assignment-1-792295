@@ -1,0 +1,155 @@
+version: '3.5'
+
+x-kafka: &kafka
+  image: 'confluentinc/cp-kafka:7.3.3'
+  restart: always
+
+networks:
+  kafka-network:
+    name: kafka-network
+    driver: bridge
+    #external: true
+
+services:
+
+  nodejs_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+
+  # Generates a KAFKA_KRAFT_CLUSTER_ID for other kafka services and then is deleted. Source: https://github.com/katyagorshkova/kafka-kraft
+  kafka-gen:
+    image: confluentinc/cp-kafka:7.3.3
+    hostname: kafka-gen
+    container_name: kafka-gen
+    volumes:
+      - ./scripts/code/scripts/create_kafka_cluster_id.sh:/tmp/code/scripts/create_kafka_cluster_id.sh
+      - ./clusterID:/tmp/clusterID
+    command: "bash -c '/tmp/create_kafka_cluster_id.sh'"
+
+  kafka0:
+    <<: *kafka
+    image: confluentinc/cp-kafka:7.3.3
+    ports:
+      - "9092:9092"
+      #- "19092:19092"
+    networks:
+      - kafka-network
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_ENABLE_KRAFT=yes
+      # KAFKA_KRAFT_CLUSTER_ID is added by kafka-gen
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=BROKER://:9092,CONTROLLER://:19092
+      # My desktop PC ip: 192.168.1.97
+      - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.1.97:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT
+      #- KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@192.168.1.97:19092,1@192.168.1.97:19093,2@192.168.1.97:19094
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka0:19092,1@kafka1:19093,2@kafka2:19094
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+    volumes:
+      - kafka0_data:/var/lib/kafka/data
+      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./clusterID:/tmp/clusterID
+    command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
+
+  kafka1:
+    <<: *kafka
+    image: confluentinc/cp-kafka:7.3.3
+    ports:
+      - "9093:9093"
+      #- "19093:19093"
+    networks:
+      - kafka-network
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_ENABLE_KRAFT=yes
+      # KAFKA_KRAFT_CLUSTER_ID is added by kafka-gen
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=BROKER://:9093,CONTROLLER://:19093
+      # My desktop PC ip: 192.168.1.97
+      - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.1.97:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT
+      #- KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@192.168.1.97:19092,1@192.168.1.97:19093,2@192.168.1.97:19094
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka0:19092,1@kafka1:19093,2@kafka2:19094
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+    volumes:
+      - kafka1_data:/var/lib/kafka/data
+      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./clusterID:/tmp/clusterID
+    command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
+
+  kafka2:
+    <<: *kafka
+    image: confluentinc/cp-kafka:7.3.3
+    ports:
+      - "9094:9094"
+      #- "19094:19094"
+    networks:
+      - kafka-network
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_CFG_NODE_ID=2
+      - KAFKA_ENABLE_KRAFT=yes
+      # KAFKA_KRAFT_CLUSTER_ID is added by kafka-gen
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=BROKER://:9094,CONTROLLER://:19094
+      # My desktop PC ip: 192.168.1.97
+      - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.1.97:9094  
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT
+      #- KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@192.168.1.97:19092,1@192.168.1.97:19093,2@192.168.1.97:19094
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka0:19092,1@kafka1:19093,2@kafka2:19094
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL=PLAIN
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
+    volumes:
+      - kafka2_data:/var/lib/kafka/data
+      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./clusterID:/tmp/clusterID
+    command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
+
+    database:
+      image: mongo:latest
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo_db:/mnt:/data/db
+      env_file:
+      - ../secrets.env
+
+    mongo-express:
+      image: mongo-express
+      ports:
+        - "8081:8081"
+      env_file:
+        - ../secrets.env
+      environment: 
+        - ME_CONFIG_MONGODB_SERVER=database
+        - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+
+
+volumes:
+  kafka0_data:
+    driver: local
+  kafka1_data:
+    driver: local
+  kafka2_data:
+    driver: local
+  mongo_db:
+    driver: local
