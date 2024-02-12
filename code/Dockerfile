@@ -3,16 +3,15 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-
-# Install project dependencies
-RUN npm install
-
 # Copy the rest of the application code to the container
 COPY . .
+
+# Install project dependencies
+#COPY package.json package.json
+RUN npm install
 
 # Port
 EXPOSE 3000
 
 # Command to run your application
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

@@ -3,7 +3,7 @@
 # Stop all containers defined in docker-compose.yml
 docker-compose -f docker-compose.yml down
 
-# Remove generated Kafka cluster ID file
-rm -rf clusterID
+# Delete all containers defined in docker-compose.yml
+docker rm -f docker-compose.yml down
 
 echo "Stopped all containers."

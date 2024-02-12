@@ -12,7 +12,7 @@ networks:
 
 services:
 
-  nodejs_app:
+  mysimbdp:
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,7 +27,7 @@ services:
     hostname: kafka-gen
     container_name: kafka-gen
     volumes:
-      - ./scripts/code/scripts/create_kafka_cluster_id.sh:/tmp/code/scripts/create_kafka_cluster_id.sh
+      - ./scripts/create_kafka_cluster_id.sh:/tmp/code/scripts/create_kafka_cluster_id.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c '/tmp/create_kafka_cluster_id.sh'"
 
@@ -58,7 +58,7 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka0_data:/var/lib/kafka/data
-      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
@@ -89,7 +89,7 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka1_data:/var/lib/kafka/data
-      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
@@ -109,7 +109,7 @@ services:
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
       - KAFKA_CFG_LISTENERS=BROKER://:9094,CONTROLLER://:19094
       # My desktop PC ip: 192.168.1.97
-      - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.1.97:9094  
+      - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.1.97:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT
       #- KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@192.168.1.97:19092,1@192.168.1.97:19093,2@192.168.1.97:19094
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka0:19092,1@kafka1:19093,2@kafka2:19094
@@ -120,28 +120,28 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka2_data:/var/lib/kafka/data
-      - ./scripts/code/scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
+      - ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       - ./clusterID:/tmp/clusterID
     command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
-    database:
-      image: mongo:latest
-      ports:
-        - "27017:27017"
-      volumes:
-        - mongo_db:/mnt:/data/db
-      env_file:
-      - ../secrets.env
+  database:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - /mnt:/data/db
+    env_file:
+    - ./secrets.env
 
-    mongo-express:
-      image: mongo-express
-      ports:
-        - "8081:8081"
-      env_file:
-        - ../secrets.env
-      environment: 
-        - ME_CONFIG_MONGODB_SERVER=database
-        - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    env_file:
+      - ./secrets.env
+    environment: 
+      - ME_CONFIG_MONGODB_SERVER=database
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
 
 
 volumes:
@@ -150,6 +150,4 @@ volumes:
   kafka1_data:
     driver: local
   kafka2_data:
-    driver: local
-  mongo_db:
     driver: local

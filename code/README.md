@@ -1,1 +1,0 @@
-# The code for the Big Data Platform

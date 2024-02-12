@@ -20,11 +20,11 @@ while [ ! -e "$file_path" ] || [ ! -s "$file_path" ]; do
 done
 
 # Check if file path exists and is not empty and if true stop and delete kafka-gen that only generates the KAFKA_KRAFT_CLUSTER_ID.
-if [ -s "$file_path" ]; then
-  echo "File $file_path exists and is not empty. Deleting container kafka-gen"
-  docker container stop kafka-gen
-  docker container rm kafka-gen
-fi
+#if [ -s "$file_path" ]; then
+#  echo "File $file_path exists and is not empty. Deleting container kafka-gen"
+#  docker container stop kafka-gen
+#  docker container rm kafka-gen
+#fi
 
 cat "$file_path"
 # KRaft required step: Format the storage directory with a new cluster ID
