@@ -4,6 +4,6 @@
 docker-compose -f docker-compose.yml restart
 
 # Remove generated Kafka cluster ID file
-rm -rf clusterID
+#rm -rf clusterID
 
 echo "Restarted all containers."

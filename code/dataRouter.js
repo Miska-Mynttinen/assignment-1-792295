@@ -1,7 +1,7 @@
 const dataRouter = require('express').Router()
 require('dotenv').config()
 
-const Data = require('./dataModel');
+const Data = require('./dataModel.js');
 
 dataRouter.get('/', async (request, response) => {
   const data = await Data.find({})

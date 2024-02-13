@@ -13,7 +13,10 @@ networks:
 services:
 
   mysimbdp:
-    image: mysimbdp-image
+    container_name: mysimbdp
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
@@ -126,6 +129,7 @@ services:
     #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   mongo:
+    container_name: mongo
     image: mongo:latest
     ports:
       - "27017:27017"
@@ -140,6 +144,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
 
   mongo-express:
+    container_name: mongo-express
     image: mongo-express
     ports:
       - "8081:8081"

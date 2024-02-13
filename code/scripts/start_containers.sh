@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Start all containers defined in docker-compose.yml
-docker-compose -f docker-compose.yml up -d
+# Start all containers
+docker-compose start
 
 # List all containers
-docker-compose -f docker-compose.yml ps
+docker ps
 
 echo "Started all containers."

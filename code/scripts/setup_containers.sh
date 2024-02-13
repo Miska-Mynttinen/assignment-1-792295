@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build Dockerfile image
-docker build -t mysimbdp-image .
+# docker build -t mysimbdp-image .
 
 # Setup and start all containers defined in docker-compose.yml
 echo "Setting up containers."
