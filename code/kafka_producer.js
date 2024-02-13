@@ -1,4 +1,4 @@
-import { Kafka } from 'kafkajs';
+const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
     clientId: 'mysimbdp',
@@ -20,4 +20,4 @@ const produce = async (topic, messages) => {
     }
 };
 
-export default produce;
+module.exports = produce;

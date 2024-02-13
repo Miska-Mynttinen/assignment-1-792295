@@ -1,11 +1,7 @@
-const mongoose = require('mongoose');
-const { expect } = require('chai');
-const axios = require('axios');
-
-// Assuming your Mongoose model is defined in dataModel.js
-const Data = require('./dataModel');
-const produce = require('kafka_producer.js');
-const consume = require('kafka_consumer.js');
+const Data = require('../dataModel');
+const produce = require('../kafka_producer.js');
+const consume = require('../kafka_consumer.js');
+require('axios');
 
 describe('Data Ingestion Test', function () {
     it('should ingest data into MongoDB using Kafka', async function () {

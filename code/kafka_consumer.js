@@ -1,4 +1,4 @@
-import { Kafka } from 'kafkajs';
+const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
     clientId: 'mysimbdp',
@@ -21,4 +21,4 @@ const consume = async (topic, groupId) => {
     }
 };
 
-export default consume;
+module.exports = consume;
