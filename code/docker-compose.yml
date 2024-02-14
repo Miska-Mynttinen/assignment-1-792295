@@ -1,13 +1,9 @@
 version: '3.5'
 
-x-kafka: &kafka
-  image: 'bitnami/kafka:latest'
-  restart: always
-
 networks:
   mysimbdp-network:
     name: mysimbdp-network
-    #driver: bridge
+    driver: bridge
     #external: true
 
 services:
@@ -17,6 +13,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: mysimbdp
+    networks:
+      - mysimbdp-network
+    restart: always
+    links:
+      - mongo
+      - kafka0
+      - kafka1
+      - kafka2
+    depends_on:
+      - mongo
     ports:
       - "3000:3000"
     volumes:
@@ -33,7 +40,8 @@ services:
   #  command: "bash -c '/tmp/code/scripts/create_kafka_cluster_id.sh'"
 
   kafka0:
-    <<: *kafka
+    image: 'bitnami/kafka:latest'
+    restart: always
     ports:
       - "9092:9092"
       #- "19092:19092"
@@ -59,13 +67,14 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
-      - kafka0_data:/tmp/bitnami/kafka
+      - kafka0:/tmp/bitnami/kafka
       #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       #- ./clusterID:/tmp/clusterID
     #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   kafka1:
-    <<: *kafka
+    image: 'bitnami/kafka:latest'
+    restart: always
     ports:
       - "9093:9093"
       #- "19093:19093"
@@ -91,13 +100,14 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
-      - kafka1_data:/tmp/bitnami/kafka
+      - kafka1:/tmp/bitnami/kafka
       #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       #- ./clusterID:/tmp/clusterID
     #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   kafka2:
-    <<: *kafka
+    image: 'bitnami/kafka:latest'
+    restart: always
     ports:
       - "9094:9094"
       #- "19094:19094"
@@ -123,7 +133,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
-      - kafka2_data:/tmp/bitnami/kafka
+      - kafka2:/tmp/bitnami/kafka
       #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
       #- ./clusterID:/tmp/clusterID
     #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
@@ -139,6 +149,7 @@ services:
     #  - /mnt:/data/db
     #env_file:
     #- secrets.env
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
@@ -147,7 +158,7 @@ services:
     container_name: mongo-express
     image: mongo-express
     ports:
-      - "8081:8081"
+      - "8080:8081"
     networks:
       - mysimbdp-network
     links:
@@ -156,6 +167,7 @@ services:
       - mongo
     #env_file:
     #  - secrets.env
+    restart: always
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
@@ -164,9 +176,9 @@ services:
       
 
 volumes:
-  kafka0_data:
+  kafka0:
     driver: local
-  kafka1_data:
+  kafka1:
     driver: local
-  kafka2_data:
+  kafka2:
     driver: local
