@@ -1,0 +1,92 @@
+2024-02-15 22:30:04 Waiting for mongo:27017...
+2024-02-15 22:30:05 Thu Feb 15 20:30:05 UTC 2024 retrying to connect to mongo:27017 (2/10)
+2024-02-15 22:30:06 Thu Feb 15 20:30:06 UTC 2024 retrying to connect to mongo:27017 (3/10)
+2024-02-15 22:30:07 Thu Feb 15 20:30:07 UTC 2024 retrying to connect to mongo:27017 (4/10)
+2024-02-15 22:30:09 No custom config.js found, loading config.default.js
+2024-02-15 22:30:09 Welcome to mongo-express 1.0.2
+2024-02-15 22:30:04 /docker-entrypoint.sh: connect: Connection refused
+2024-02-15 22:30:04 /docker-entrypoint.sh: line 15: /dev/tcp/mongo/27017: Connection refused
+2024-02-15 22:30:05 /docker-entrypoint.sh: connect: Connection refused
+2024-02-15 22:30:05 /docker-entrypoint.sh: line 15: /dev/tcp/mongo/27017: Connection refused
+2024-02-15 22:30:06 /docker-entrypoint.sh: connect: Connection refused
+2024-02-15 22:30:06 /docker-entrypoint.sh: line 15: /dev/tcp/mongo/27017: Connection refused
+2024-02-15 22:30:09 ------------------------
+2024-02-15 22:30:09 
+2024-02-15 22:30:09 
+2024-02-15 22:30:10 Mongo Express server listening at http://0.0.0.0:8081
+2024-02-15 22:32:30 GET / 200 132.076 ms - 9979
+2024-02-15 22:32:30 GET /public/css/style.css 304 4.693 ms - -
+2024-02-15 22:32:30 GET /public/css/bootstrap.min.css 304 5.064 ms - -
+2024-02-15 22:32:30 GET /public/img/mongo-express-logo.png 304 10.694 ms - -
+2024-02-15 22:32:30 GET /public/css/bootstrap-theme.min.css 304 3.851 ms - -
+2024-02-15 22:32:30 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 2.582 ms - -
+2024-02-15 22:32:30 GET /public/img/gears.gif 304 3.473 ms - -
+2024-02-15 22:32:30 GET /public/index-56afe067afbbbde795be.min.js 304 1.246 ms - -
+2024-02-15 22:32:30 GET /public/fonts/glyphicons-halflings-regular.woff2 304 0.680 ms - -
+2024-02-15 22:30:10 Server is open to allow connections from anyone (0.0.0.0)
+2024-02-15 22:30:10 basicAuth credentials are "admin:pass", it is recommended you change this in your config.js!
+2024-02-15 22:32:51 GET / 200 87.216 ms - 9979
+2024-02-15 22:32:51 GET /public/css/bootstrap.min.css 304 0.829 ms - -
+2024-02-15 22:32:51 GET /public/css/bootstrap-theme.min.css 304 0.851 ms - -
+2024-02-15 22:32:51 GET /public/css/style.css 304 0.665 ms - -
+2024-02-15 22:32:51 GET /public/img/mongo-express-logo.png 304 1.373 ms - -
+2024-02-15 22:32:51 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 0.944 ms - -
+2024-02-15 22:32:51 GET /public/index-56afe067afbbbde795be.min.js 304 13.323 ms - -
+2024-02-15 22:32:51 GET /public/img/gears.gif 304 17.867 ms - -
+2024-02-15 22:34:16 GET / 200 37.647 ms - 9980
+2024-02-15 22:34:16 GET /public/css/bootstrap.min.css 304 0.428 ms - -
+2024-02-15 22:34:16 GET /public/css/bootstrap-theme.min.css 304 0.636 ms - -
+2024-02-15 22:34:16 GET /public/img/mongo-express-logo.png 304 1.746 ms - -
+2024-02-15 22:34:16 GET /public/css/style.css 304 0.468 ms - -
+2024-02-15 22:34:16 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 0.481 ms - -
+2024-02-15 22:34:16 GET /public/img/gears.gif 304 1.857 ms - -
+2024-02-15 22:34:16 GET /public/index-56afe067afbbbde795be.min.js 304 1.885 ms - -
+2024-02-15 22:35:08 GET / 200 29.620 ms - 9980
+2024-02-15 22:35:08 GET /public/css/bootstrap.min.css 304 1.826 ms - -
+2024-02-15 22:35:08 GET /public/css/bootstrap-theme.min.css 304 1.685 ms - -
+2024-02-15 22:35:08 GET /public/img/mongo-express-logo.png 304 1.252 ms - -
+2024-02-15 22:35:08 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 1.024 ms - -
+2024-02-15 22:35:08 GET /public/css/style.css 304 1.171 ms - -
+2024-02-15 22:35:08 GET /public/index-56afe067afbbbde795be.min.js 304 0.973 ms - -
+2024-02-15 22:35:08 GET /public/img/gears.gif 304 1.492 ms - -
+2024-02-15 22:36:23 GET / 200 55.101 ms - 9980
+2024-02-15 22:36:23 GET /public/css/bootstrap.min.css 304 0.379 ms - -
+2024-02-15 22:36:23 GET /public/css/bootstrap-theme.min.css 304 5.452 ms - -
+2024-02-15 22:36:23 GET /public/index-56afe067afbbbde795be.min.js 304 5.867 ms - -
+2024-02-15 22:36:23 GET /public/img/mongo-express-logo.png 304 1.811 ms - -
+2024-02-15 22:36:23 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 1.550 ms - -
+2024-02-15 22:36:23 GET /public/css/style.css 304 1.870 ms - -
+2024-02-15 22:36:23 GET /public/img/gears.gif 304 0.514 ms - -
+2024-02-15 22:36:25 GET / 200 42.527 ms - 9980
+2024-02-15 22:36:25 GET /public/img/mongo-express-logo.png 304 3.335 ms - -
+2024-02-15 22:36:25 GET /public/css/bootstrap.min.css 304 3.349 ms - -
+2024-02-15 22:36:25 GET /public/css/bootstrap-theme.min.css 304 3.151 ms - -
+2024-02-15 22:36:25 GET /public/css/style.css 304 3.047 ms - -
+2024-02-15 22:36:25 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 2.302 ms - -
+2024-02-15 22:36:25 GET /public/index-56afe067afbbbde795be.min.js 304 6.535 ms - -
+2024-02-15 22:36:25 GET /public/img/gears.gif 304 1.785 ms - -
+2024-02-15 22:37:26 GET / 200 41.644 ms - 9980
+2024-02-15 22:37:26 GET /public/css/bootstrap.min.css 304 2.897 ms - -
+2024-02-15 22:37:26 GET /public/css/bootstrap-theme.min.css 304 1.539 ms - -
+2024-02-15 22:37:26 GET /public/css/style.css 304 4.410 ms - -
+2024-02-15 22:37:26 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 4.370 ms - -
+2024-02-15 22:37:26 GET /public/img/mongo-express-logo.png 304 1.743 ms - -
+2024-02-15 22:37:26 GET /public/index-56afe067afbbbde795be.min.js 304 0.558 ms - -
+2024-02-15 22:37:26 GET /public/img/gears.gif 304 0.391 ms - -
+2024-02-15 22:38:49 GET / 200 29.224 ms - 9980
+2024-02-15 22:38:49 GET /public/css/bootstrap-theme.min.css 304 0.593 ms - -
+2024-02-15 22:38:50 GET /public/css/style.css 304 0.683 ms - -
+2024-02-15 22:38:50 GET /public/css/bootstrap.min.css 304 0.438 ms - -
+2024-02-15 22:38:50 GET /public/img/mongo-express-logo.png 304 3.818 ms - -
+2024-02-15 22:38:50 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 2.917 ms - -
+2024-02-15 22:38:50 GET /public/index-56afe067afbbbde795be.min.js 304 1.212 ms - -
+2024-02-15 22:38:50 GET /public/img/gears.gif 304 0.458 ms - -
+2024-02-15 22:41:30 GET / 200 24.860 ms - 9980
+2024-02-15 22:41:30 GET /public/img/mongo-express-logo.png 304 0.457 ms - -
+2024-02-15 22:41:30 GET /public/css/bootstrap-theme.min.css 304 1.147 ms - -
+2024-02-15 22:41:30 GET /public/css/bootstrap.min.css 304 2.621 ms - -
+2024-02-15 22:41:30 GET /public/img/gears.gif 304 0.934 ms - -
+2024-02-15 22:41:30 GET /public/css/style.css 304 0.679 ms - -
+2024-02-15 22:41:30 GET /public/index-56afe067afbbbde795be.min.js 304 1.210 ms - -
+2024-02-15 22:41:30 GET /public/vendor-93f5fc3ae20e0dfd68cb.min.js 304 1.050 ms - -
+2024-02-15 22:41:30 GET /public/fonts/glyphicons-halflings-regular.woff2 304 0.388 ms - -

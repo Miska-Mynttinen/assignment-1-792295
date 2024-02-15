@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Build Dockerfile image
-# docker build -t mysimbdp-image .
-
 # Set up mongoDB first because others depend on it
-
 docker-compose -f docker-compose.yml up -d mongo
 
 sleep 1

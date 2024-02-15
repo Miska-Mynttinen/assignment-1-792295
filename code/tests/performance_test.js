@@ -1,58 +1,54 @@
-const axios = require('axios');
 const fs = require('fs').promises;
-const { getAll, getOne, getTestSourceData } = require('../dataService.js');
+const path = require('path');
+require('axios');
+const { getTestSourceData } = require('../dataService.js');
 const produce = require('../kafka_producer.js');
 const consume = require('../kafka_consumer.js');
-const nodeplotlib = require('nodeplotlib');
-
-
 
 async function runPerformanceTest() {
-
     const testData = await getTestSourceData();
-
-    const startTime = Date.now();
-
-    await produce('test-topic', [{ value: JSON.stringify(testData) }]);
-
-    await consume('test-topic', 'test-group');
+    const testDataLength = testData.length;
+    const iterationTimes = [];
+    const consumers = {};
     
-    await wait(10000); // Wait for data to be ingested into MongoDB
-    
-    const result = await getOne(testData[0].id); // Assuming the first data point is used for testing
-    if (!result || !isEqual(result.toObject(), testData[0])) {
-        throw new Error('Performance test failed');
+    for (let i = 0; i < 10; i++) {
+        const startTime = Date.now();
+        const startIndex = Math.floor((i * 0.1) * testDataLength);
+        const endIndex = Math.floor(((i + 1) * 0.1) * testDataLength);
+
+        console.log('\nstartIndex', startIndex);
+        console.log('\nendIndex', endIndex);
+        for (let j = startIndex; j < endIndex; j++) {
+            await produce(`test-topic${i}`, [{ value: JSON.stringify([testData[j]]) }]);
+
+            if (j === startIndex) {
+                console.log('Starting consumers');
+                consumers[`consumer${i}_1`] = await consume(`test-topic${i}`, 'test-group');
+                consumers[`consumer${i}_2`] = await consume(`test-topic${i}`, 'test-group');
+                consumers[`consumer${i}_3`] = await consume(`test-topic${i}`, 'test-group');
+            }
+        }
+
+        // Wait for data to be ingested into MongoDB
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        const endTime = Date.now();
+        const iterationTime = endTime - startTime;
+        iterationTimes.push(iterationTime);
+        await consumers[`consumer${i}_1`].disconnect();
+        await consumers[`consumer${i}_2`].disconnect();
+        await consumers[`consumer${i}_3`].disconnect();
     }
     
-    const endTime = Date.now();
-    const iterationTime = endTime - startTime;
-    iterationTimes.push(iterationTime);
-    
-    await saveIterationTimes(iterationTimes); // Save iteration times to a file
-    plotGraph(iterationTimes);
+    await saveIterationTimes(iterationTimes);
 }
 
 async function saveIterationTimes(iterationTimes) {
-    await fs.writeFile('iterationTimes.json', JSON.stringify(iterationTimes));
+    const relativeFilePath = path.join(__dirname, 'performance_1.json');
+    await fs.writeFile(relativeFilePath, JSON.stringify(iterationTimes));
 }
-
-async function loadIterationTimesFromFile() {
-    const data = await fs.readFile('iterationTimes.json');
-    return JSON.parse(data);
-}
-
-function plotGraph(iterationTimes) {
-    const data = [{ x: Array.from({ length: iterationTimes.length }, (_, i) => i + 1), y: iterationTimes, type: 'scatter', name: 'Iteration Time (ms)' }];
-    
-    nodeplotlib.plot(data);
-}
-
-// Rest of the code remains unchanged
-
-// Define the number of iterations for the performance test
-const iterations = 10;
 
 // Run the performance test
-runPerformanceTest(iterations)
+runPerformanceTest()
     .then(() => console.log('Performance test completed successfully'))
     .catch(error => console.error('Performance test failed:', error));

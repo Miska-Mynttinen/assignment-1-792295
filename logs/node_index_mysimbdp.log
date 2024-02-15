@@ -1,0 +1,10 @@
+2024-02-15 22:30:07 
+2024-02-15 22:30:07 > app@1.0.0 start
+2024-02-15 22:30:07 > node index.js
+2024-02-15 22:30:07 
+2024-02-15 22:30:33 connecting to mysimbdp-coredms (MongoDB)
+2024-02-15 22:30:33 Server is running on port 3000.
+2024-02-15 22:30:33 connected to mysimbdp-coredms (MongoDB)
+2024-02-15 22:30:33 (node:25) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2024-02-15 22:30:33 (Use `node --trace-deprecation ...` to show where the warning was created)
+2024-02-15 22:30:33 (node:25) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.

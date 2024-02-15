@@ -29,16 +29,6 @@ services:
     volumes:
       - .:/app
 
-  # Generates a KAFKA_KRAFT_CLUSTER_ID for other kafka services and then is deleted. Source: https://github.com/katyagorshkova/kafka-kraft
-  # kafka-gen:
-  #  image: confluentinc/cp-kafka:7.3.3
-  #  hostname: kafka-gen
-  #  container_name: kafka-gen
-  #  volumes:
-  #    - ./scripts/create_kafka_cluster_id.sh:/tmp/code/scripts/create_kafka_cluster_id.sh
-  #    - ./clusterID:/tmp/clusterID
-  #  command: "bash -c '/tmp/code/scripts/create_kafka_cluster_id.sh'"
-
   kafka0:
     image: 'bitnami/kafka:latest'
     restart: always
@@ -68,9 +58,6 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka0:/tmp/bitnami/kafka
-      #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
-      #- ./clusterID:/tmp/clusterID
-    #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   kafka1:
     image: 'bitnami/kafka:latest'
@@ -101,9 +88,6 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka1:/tmp/bitnami/kafka
-      #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
-      #- ./clusterID:/tmp/clusterID
-    #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   kafka2:
     image: 'bitnami/kafka:latest'
@@ -134,9 +118,6 @@ services:
       - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=3
     volumes:
       - kafka2:/tmp/bitnami/kafka
-      #- ./scripts/update_kafka_containers.sh:/tmp/code/scripts/update_kafka_containers.sh
-      #- ./clusterID:/tmp/clusterID
-    #command: "bash -c '/tmp/code/scripts/update_kafka_containers.sh && /etc/confluent/docker/run'"
 
   mongo:
     container_name: mongo
@@ -145,8 +126,6 @@ services:
       - "27017:27017"
     networks:
       - mysimbdp-network
-    #volumes:
-    #  - /mnt:/data/db
     #env_file:
     #- secrets.env
     restart: always

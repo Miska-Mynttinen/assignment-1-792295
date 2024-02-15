@@ -10,7 +10,8 @@
         "start_containers": "bash ./scripts/start_containers.sh",
         "stop_containers": "bash ./scripts/stop_containers.sh",
         "restart_containers": "bash ./scripts/restart_containers.sh",
-        "test": "node ./tests/ingest_one_file.js"
+        "test": "node ./tests/ingest_one_file.js",
+        "performance_test": "node ./tests/performance_test.js"
     },
     "dependencies": {
         "axios": "^1.6.7",
