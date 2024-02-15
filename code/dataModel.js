@@ -10,8 +10,8 @@ const dataSchema = new mongoose.Schema({
       longitude: String,
       altitude: String,
       country: String,
-      exact_location: Number,
-      indoor: Number
+      exact_location: String,
+      indoor: String
     },
     sensor: {
       id: String,
@@ -31,9 +31,15 @@ const dataSchema = new mongoose.Schema({
 
 dataSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
+
+    // Remove _id field from each object within the sensordatavalues array
+    if (returnedObject.sensordatavalues && Array.isArray(returnedObject.sensordatavalues)) {
+      returnedObject.sensordatavalues.forEach(sensorData => {
+        delete sensorData._id;
+      });
+    }
   }
 })
 

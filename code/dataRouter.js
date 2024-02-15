@@ -10,8 +10,10 @@ dataRouter.get('/', async (request, response) => {
 });
 
 
+// Changed so it gets the document property id, instead of database document _id
 dataRouter.get('/:id', async (request, response) => {
-  const data = await Data.findById(request.params.id)
+  // const data = await Data.findById(request.params.id)
+  const data = await Data.findOne({ id: request.params.id });
   if (data) {
     response.json(data.toJSON())
   } else {
@@ -24,7 +26,6 @@ dataRouter.post('/', async (request, response) => {
   const body = request.body
 
   const data = new Data({
-    thing: body.thing,
     id: body.id,
     sampling_rate: body.sampling_rate,
     timestamp: body.timestamp,
@@ -35,12 +36,13 @@ dataRouter.post('/', async (request, response) => {
 
   const savedData = await data.save()
   response.status(201).json(savedData)
-
 });
 
 
+// Changed so it gets the document property id, instead of database document _id
 dataRouter.delete('/:id', async (request, response) => {
-  await Data.findByIdAndRemove(request.params.id)
+  // await Data.findByIdAndRemove(request.params.id)
+  await Data.findOneAndRemove({ id: request.params.id })
   response.status(204).end()
 });
 

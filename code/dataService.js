@@ -27,4 +27,9 @@ const remove = id => {
     return request.then(response => response.data)
 }
 
-module.exports = { getAll, getOne, create, update, remove }
+const getTestSourceData = () => {
+    const request = axios.get('https://data.sensor.community/static/v1/data.json');
+    return request.then(response => response.data)
+}
+
+module.exports = { getAll, getOne, create, update, remove, getTestSourceData }

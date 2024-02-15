@@ -13,16 +13,6 @@ const kafka = new Kafka({
     //brokers: ['localhost:9092', 'localhost:9093', 'localhost:9094']
 });
 
-/*const connectToMongo = async () => {
-    mongoose.connect(`mongodb://root:password@mongo:27017/`)
-        .then(() => {
-            console.log('connected to mysimbdp-coredms (MongoDB)')
-        })
-        .catch((error) => {
-            console.log('error connection to mysimbdp-coredms (MongoDB):', error.message)
-        });
-}*/
-
 const consume = async (topic, groupId) => {
     const consumer = kafka.consumer({ groupId: groupId });
     try {
@@ -31,14 +21,15 @@ const consume = async (topic, groupId) => {
         await consumer.run({
             eachMessage: async ({ topic, partition, message }) => {
                 const data = JSON.parse(message.value.toString())
-                console.log('\ndata',data);
-                console.log('\n');
                 await create(data);
             },
         });
     } catch (error) {
         console.error(error);
     }
+
+    // Return consumer in order to disconnect with consumer.disconnect()
+    return consumer;
 };
 
 module.exports = consume;
