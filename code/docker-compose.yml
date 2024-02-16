@@ -30,6 +30,7 @@ services:
       - .:/app
 
   kafka0:
+    container_name: kafka0
     image: 'bitnami/kafka:latest'
     restart: always
     ports:
@@ -60,6 +61,7 @@ services:
       - kafka0:/tmp/bitnami/kafka
 
   kafka1:
+    container_name: kafka1
     image: 'bitnami/kafka:latest'
     restart: always
     ports:
@@ -90,6 +92,7 @@ services:
       - kafka1:/tmp/bitnami/kafka
 
   kafka2:
+    container_name: kafka2
     image: 'bitnami/kafka:latest'
     restart: always
     ports:

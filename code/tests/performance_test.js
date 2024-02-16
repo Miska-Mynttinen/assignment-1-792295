@@ -1,3 +1,4 @@
+// Many Kafka Producers (one for each message) and Kafka Consumers are accessing the concurrent mysimbdp-dataingest writing data into mysimbdp-coredms
 const fs = require('fs').promises;
 const path = require('path');
 require('axios');
@@ -19,10 +20,11 @@ async function runPerformanceTest() {
         console.log('\nstartIndex', startIndex);
         console.log('\nendIndex', endIndex);
         for (let j = startIndex; j < endIndex; j++) {
-            await produce(`test-topic${i}`, [{ value: JSON.stringify([testData[j]]) }]);
+            await produce(`test-topic${i}`, [{ value: JSON.stringify(testData[j]) }]);
 
             if (j === startIndex) {
                 console.log('Starting consumers');
+                //Change the amount of these to have more ingestors running at the same time (disconnect later)
                 consumers[`consumer${i}_1`] = await consume(`test-topic${i}`, 'test-group');
                 consumers[`consumer${i}_2`] = await consume(`test-topic${i}`, 'test-group');
                 consumers[`consumer${i}_3`] = await consume(`test-topic${i}`, 'test-group');
@@ -35,6 +37,8 @@ async function runPerformanceTest() {
         const endTime = Date.now();
         const iterationTime = endTime - startTime;
         iterationTimes.push(iterationTime);
+
+        //DISCONNECT HERE
         await consumers[`consumer${i}_1`].disconnect();
         await consumers[`consumer${i}_2`].disconnect();
         await consumers[`consumer${i}_3`].disconnect();
@@ -44,7 +48,7 @@ async function runPerformanceTest() {
 }
 
 async function saveIterationTimes(iterationTimes) {
-    const relativeFilePath = path.join(__dirname, 'performance_1.json');
+    const relativeFilePath = path.join(__dirname, 'performance_ingest.json');
     await fs.writeFile(relativeFilePath, JSON.stringify(iterationTimes));
 }
 

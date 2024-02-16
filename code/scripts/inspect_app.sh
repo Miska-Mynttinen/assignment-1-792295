@@ -1,1 +1,1 @@
-docker run -it --rm mysimbdp-image /bin/bash
+docker exec -it mysimbdp /bin/bash
