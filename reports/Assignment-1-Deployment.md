@@ -1,24 +1,26 @@
 # This is a deployment/installation guide
+## Requirements
+- Node.js (node version > 14.0.0)
+
 ## Deploy
 cd code
 
+##### install node package dependencies
+npm install
+
 ###### setup containers
-bash bash ./scripts/setup_containers.sh
+bash ./scripts/setup_containers.sh
 
-###### open terminal in node app and execute tests
-docker exec -it mysimbdp /bin/bash
-
-###### in container shell
+###### test with one file
 npm run test
 
 ##### in browser go to localhost:8080 to see mongo-express interface
 ##### created file is in test
 
 
-
-###### also in container shell
+##### to check performance plot from previous tests , or just look at /tests/performance_graph.jpeg
 npm run plot_graph
 
 
-###### also in container shell, takes a lot of time
+###### takes a lot of time
 npm run performance_test
