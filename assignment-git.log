@@ -1,1 +1,81 @@
-Git log of project:
+commit f3bb40f6bc738325581bb433f7b373f63fc94319 (HEAD -> main, origin/main)
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Fri Feb 16 04:12:34 2024 +0200
+
+    finished project
+
+commit 7185e10f7d3b6f91e681f1d8cb9db2516f81048e
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Thu Feb 15 22:55:01 2024 +0200
+
+    finished performance_test.js and tested normal configuration, output stored in /tests/performance_1.json and logs/performance_1.log
+
+commit 1a140dfed8b3cdbe2c45ad2f999df9565d7f200d
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Thu Feb 15 19:16:50 2024 +0200
+
+    fixed mongoDB query in dataRouter and dataModel, fixed test ingest_one_file.s and added performance tests
+
+commit ebed1a42898cdcc868efb0de97f00e30dd7a4465
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Wed Feb 14 23:54:55 2024 +0200
+:...skipping...
+commit f3bb40f6bc738325581bb433f7b373f63fc94319 (HEAD -> main, origin/main)
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Fri Feb 16 04:12:34 2024 +0200
+
+    finished project
+
+commit 7185e10f7d3b6f91e681f1d8cb9db2516f81048e
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Thu Feb 15 22:55:01 2024 +0200
+
+    finished performance_test.js and tested normal configuration, output stored in /tests/performance_1.json and logs/performance_1.log
+
+commit 1a140dfed8b3cdbe2c45ad2f999df9565d7f200d
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Thu Feb 15 19:16:50 2024 +0200
+
+    fixed mongoDB query in dataRouter and dataModel, fixed test ingest_one_file.s and added performance tests
+
+commit ebed1a42898cdcc868efb0de97f00e30dd7a4465
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Wed Feb 14 23:54:55 2024 +0200
+
+    Fixed connecting from test to kafka to mysimdb-coredms (mongoDB)
+
+commit 6f2be77d5f857383d13782f9904464e8a962ba4a
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Tue Feb 13 23:12:56 2024 +0200
+
+    configuration fixes
+
+commit 8ac151529c2dc36e3361cb7983f8fdaef5a5463a
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Tue Feb 13 17:50:58 2024 +0200
+
+    Fixed many docker configurations, added dataRouter.js and dataModel.js and changed scripts
+
+commit c6cfcfd0b56c73a8e88d19d4a7409d79998b6fff
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Mon Feb 12 23:22:43 2024 +0200
+
+    Docker setting up scripts, index.js changes, kafka producer and consumer updates and initial tests for running
+
+commit 793f855615c4b93a93712bae8344d05649ab85f2
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Thu Feb 8 22:53:28 2024 +0200
+
+    Created MongoDB and Kafka configurations in docker-compose.yml and created Dockerfile and scripts that install Node.js and dependencies needed
+
+commit 3ba85e789b57fc4e6fffc21089098e8bd51b2d1e
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Wed Feb 7 20:58:04 2024 +0200
+
+    Design ideas and explanations
+
+commit 0cec09fb9755ea4216526291ed1e150b8bf420c2
+Author: Miska-Mynttinen <miska.mynttinen@aalto.fi>
+Date:   Wed Feb 7 18:00:14 2024 +0200
+
+    initial commit
